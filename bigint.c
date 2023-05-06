@@ -1,13 +1,13 @@
 #include "bigint.h"
 #include <string.h>
 
-// Atribuição (com extensão)
+// Atribuindo o valor de um signed long extendido para big. 
 void big_val(BigInt res, long val) {
     memset(res, (val < 0) ? 0xFF : 0, NUM_BITS / 8);
     memcpy(res, &val, sizeof(long));
 }
-
-// Negar (complemento a 2)
+ 
+// Atribuindo o valor "negado" complemento a 2 de um inteiro de 128 bits "a".
 void big_comp2(BigInt res, BigInt a) {
     unsigned char carry = 1;
     for (int i = 0; i < NUM_BITS / 8; i++) {
@@ -16,7 +16,7 @@ void big_comp2(BigInt res, BigInt a) {
     }
 }
 
-// Soma
+//Soma de dois inteiros (a e b) de 128 bits.
 void big_sum(BigInt res, BigInt a, BigInt b) {
     unsigned short carry = 0;
     for (int i = 0; i < NUM_BITS / 8; i++) {
@@ -26,14 +26,14 @@ void big_sum(BigInt res, BigInt a, BigInt b) {
     }
 }
 
-// Subtração
+//Subtração entre dois inteiros (a e b) de 128 bits.
 void big_sub(BigInt res, BigInt a, BigInt b) {
     BigInt neg_b;
     big_comp2(neg_b, b);
     big_sum(res, a, neg_b);
 }
 
-// Multiplicação
+//Multiplicação de dois inteiros (a e b) de 128 bits.
 void big_mul(BigInt res, BigInt a, BigInt b) {
     BigInt temp;
     memset(res, 0, NUM_BITS / 8);
@@ -45,7 +45,7 @@ void big_mul(BigInt res, BigInt a, BigInt b) {
     }
 }
 
-// Deslocamento à esquerda
+// Left shift lógico de n bits no inteiro de 128 bits "a". 
 void big_shl(BigInt res, BigInt a, int n) {
     int byte_shift = n / 8;
     int bit_shift = n % 8;
@@ -61,7 +61,7 @@ void big_shl(BigInt res, BigInt a, int n) {
     }
 }
 
-// Deslocamento à direita lógico
+// Right shift lógico de n bits no inteiro de 128 bits "a". 
 void big_shr(BigInt res, BigInt a, int n) {
     int byte_shift = n / 8;
     int bit_shift = n % 8;
@@ -77,7 +77,7 @@ void big_shr(BigInt res, BigInt a, int n) {
     }
 }
 
-// Deslocamento à direita aritmético
+// Right shift aritmético de n bits no inteiro de 128 bits a. 
 void big_sar(BigInt res, BigInt a, int n) {
     int byte_shift = n / 8;
     int bit_shift = n % 8;
@@ -88,7 +88,7 @@ void big_sar(BigInt res, BigInt a, int n) {
         if (i + byte_shift + 1 < NUM_BITS / 8 && bit_shift > 0) {
             res[i] |= a[i + byte_shift + 1] << (8 - bit_shift);
         }
-    }
+    } 
 
     if (sign_bit) {
         for (int i = NUM_BITS / 8 - 1; i >= NUM_BITS / 8 - byte_shift; i--) {

@@ -2,34 +2,35 @@
 #define BIGINT_H
 
 #define NUM_BITS 128
+
 typedef unsigned char BigInt[NUM_BITS / 8];
 
-/* Atribuição (com extensão) */
+// Atribuindo o valor de um signed long extendido para big. 
 void big_val(BigInt res, long val);
 
 /* Operações Aritméticas */
 
-/* res = -a */
+// Atribuindo o valor "negado" complemento a 2 de um inteiro de 128 bits "a".
 void big_comp2(BigInt res, BigInt a);
 
-/* res = a + b */
+//Soma de dois inteiros (a e b) de 128 bits.
 void big_sum(BigInt res, BigInt a, BigInt b);
 
-/* res = a - b */
+//Subtração entre dois inteiros (a e b) de 128 bits.
 void big_sub(BigInt res, BigInt a, BigInt b);
 
-/* res = a * b */
+//Multiplicação de dois inteiros (a e b) de 128 bits.
 void big_mul(BigInt res, BigInt a, BigInt b);
 
 /* Operações de Deslocamento */
 
-/* res = a << n */
+// Left shift lógico de n bits no inteiro de 128 bits "a". 
 void big_shl(BigInt res, BigInt a, int n);
 
-/* res = a >> n (lógico) */
+// Right shift lógico de n bits no inteiro de 128 bits "a". 
 void big_shr(BigInt res, BigInt a, int n);
 
-/* res = a >> n (aritmético) */
+// Right shift aritmético de n bits no inteiro de 128 bits a. 
 void big_sar(BigInt res, BigInt a, int n);
 
 #endif
